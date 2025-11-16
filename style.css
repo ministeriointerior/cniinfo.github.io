@@ -17,7 +17,33 @@ html, body {
   font-family: 'Consolas', monospace;
   background: #000;
   color: #fff;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+}
+
+/* Fondo matrix */
+.matrix {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   overflow: hidden;
+  z-index: 0;
+}
+
+.matrix span {
+  position: absolute;
+  color: #fff;
+  font-size: 14px;
+  opacity: 0.05;
+  white-space: pre;
+  animation: fall linear infinite;
+}
+
+@keyframes fall {
+  0% {transform: translateY(-100%);}
+  100% {transform: translateY(100vh);}
 }
 
 /* Pantalla de carga */
@@ -58,93 +84,6 @@ html, body {
   line-height: 1.5;
 }
 
-/* Fondo matrix */
-.matrix {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-  z-index:0;
-}
-
-.matrix span {
-  position: absolute;
-  color: #fff;
-  font-size: 14px;
-  opacity: 0.05;
-  white-space: pre;
-  animation: fall linear infinite;
-}
-
-@keyframes fall {
-  0% {transform: translateY(-100%);}
-  100% {transform: translateY(100vh);}
-}
-
-/* Contenido principal */
-.content-screen {
-  display: none;
-  width: 100%;
-  min-height: 100vh;
-  overflow-y: auto; 
-  position: relative;
-  background: #000;
-  padding: 40px 20px;
-  display: flex;
-  justify-content: center; 
-  align-items: center;     
-  box-sizing: border-box;
-}
-
-/* Laterales con información clasificada */
-.side-label {
-  position: fixed;
-  top: 50%;
-  transform: translateY(-50%);
-  font-size: 24px;
-  color: #fff;
-  opacity: 0.1;
-  letter-spacing: 2px;
-  writing-mode: vertical-rl;
-  pointer-events: none;
-  user-select: none;
-}
-
-.side-label.left { left: 10px; }
-.side-label.right { right: 10px; }
-
-/* Caja interna de contenido */
-.cni-box {
-  max-width: 900px;
-  width: 100%;
-  background: #000;
-  padding: 40px;
-  border-radius: 12px;
-  border: 2px solid #fff;
-  box-shadow: 0 0 40px #fff;
-  text-align: left;
-  color: #fff;
-  animation: glow 2s ease-in-out infinite;
-}
-
-@keyframes glow {
-  0%,100% {box-shadow: 0 0 10px #fff, 0 0 20px #fff;}
-  50% {box-shadow: 0 0 20px #fff, 0 0 40px #fff;}
-}
-
-/* Títulos */
-.cni-box h1, .cni-box h2, .cni-box h3 {
-  text-align: center;
-  margin-bottom: 20px;
-  text-shadow: 0 0 5px #fff, 0 0 15px #fff;
-}
-
-/* Lista */
-.cni-box ul { margin-left: 20px; }
-.cni-box ul li { margin-bottom: 10px; }
-
 /* Login */
 .center {
   width: 100%;
@@ -154,6 +93,7 @@ html, body {
   align-items: center;
   background: #000;
   position: relative;
+  z-index: 2;
 }
 
 .login-box {
@@ -217,6 +157,69 @@ html, body {
   display: none;
 }
 
+/* Contenido principal */
+.content-screen {
+  display: none;
+  width: 100%;
+  min-height: 100vh;
+  overflow-y: auto; /* scroll vertical activo */
+  position: relative;
+  background: #000;
+  padding: 80px 20px;
+  box-sizing: border-box;
+  z-index: 2;
+  display: flex;
+  justify-content: center; /* centra horizontal */
+}
+
+/* Wrapper de contenido para scroll */
+.content-wrapper {
+  max-width: 900px;
+  width: 100%;
+}
+
+/* Laterales con información clasificada */
+.side-label {
+  position: fixed;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 24px;
+  color: #fff;
+  opacity: 0.1;
+  letter-spacing: 2px;
+  writing-mode: vertical-rl;
+  pointer-events: none;
+  user-select: none;
+}
+
+.side-label.left { left: 10px; }
+.side-label.right { right: 10px; }
+
+/* Caja interna de contenido */
+.cni-box {
+  background: #000;
+  padding: 40px;
+  border-radius: 12px;
+  border: 2px solid #fff;
+  box-shadow: 0 0 40px #fff;
+  text-align: center;
+  color: #fff;
+  animation: glow 2s ease-in-out infinite;
+}
+
+@keyframes glow {
+  0%,100% {box-shadow: 0 0 10px #fff, 0 0 20px #fff;}
+  50% {box-shadow: 0 0 20px #fff, 0 0 40px #fff;}
+}
+
+/* Títulos */
+.cni-box h1, .cni-box h2, .cni-box h3 {
+  margin-bottom: 20px;
+  text-shadow: 0 0 5px #fff, 0 0 15px #fff;
+}
+
+.cni-box ul { margin-left: 20px; text-align: left; }
+.cni-box ul li { margin-bottom: 10px; }
 </style>
 </head>
 <body>
@@ -250,24 +253,28 @@ html, body {
   <div class="side-label left">INFORMACIÓN CLASIFICADA</div>
   <div class="side-label right">INFORMACIÓN CLASIFICADA</div>
 
-  <div class="cni-box">
-    <h1>Bienvenido al Sistema</h1>
-    <h2>División Operativa - CNI</h2>
-    <p>Todo el contenido está centrado vertical y horizontalmente.</p>
-    <ul>
-      <li>Acceso solo para agentes autorizados.</li>
-      <li>Monitoreo constante de la actividad.</li>
-      <li>Todo registro queda guardado en el sistema.</li>
-      <li>Clasificación: Confidencial</li>
-    </ul>
-    <p>Más información relevante se mostrará aquí.</p>
-    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum et ligula in nunc bibendum fringilla a eu lectus.</p>
-    <p>Si el contenido excede la pantalla, se puede hacer scroll vertical.</p>
+  <div class="content-wrapper">
+    <div class="cni-box">
+      <h1>INFORME DE ANÁLISIS E INTERROGATORIO – CRIMEN ORGANIZADO</h1>
+      <h2>División Operativa - CNI</h2>
+      <p>Este contenido está completamente centrado horizontalmente y se puede hacer scroll vertical para leer todo.</p>
+      <ul>
+        <li>Acceso solo para agentes autorizados.</li>
+        <li>Monitoreo constante de la actividad.</li>
+        <li>Todo registro queda guardado en el sistema.</li>
+        <li>Clasificación: Confidencial</li>
+      </ul>
+      <p>Más información relevante se mostrará aquí, incluyendo detalles de investigaciones y análisis de casos.</p>
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum et ligula in nunc bibendum fringilla a eu lectus.</p>
+      <p>Acceso a secciones críticas limitado únicamente a personal autorizado.</p>
+      <p>Información complementaria: protocolos internos, registros de interrogatorio y análisis de crimen organizado.</p>
+      <p>Si el contenido excede la pantalla, se puede bajar usando el scroll vertical.</p>
+    </div>
   </div>
 </div>
 
 <script>
-// Pantalla de carga simulada
+// Pantalla de carga
 window.addEventListener('load', function() {
   setTimeout(() => {
     document.getElementById('loading-screen').style.display = 'none';
