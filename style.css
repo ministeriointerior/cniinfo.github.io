@@ -1,3 +1,9 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>CNI - División Operativa</title>
+<style>
 /* Reset general */
 body, html {
   margin: 0;
@@ -6,7 +12,7 @@ body, html {
   font-family: 'Consolas', monospace;
   background: #000;
   color: #fff;
-  overflow-y: auto;
+  overflow: hidden;
   position: relative;
 }
 
@@ -34,9 +40,16 @@ body, html {
   100% {background-position: 1000px 1000px;}
 }
 
+/* Fade-in general */
+@keyframes fadeIn {
+  from {opacity: 0; transform: translateY(20px);}
+  to {opacity: 1; transform: translateY(0);}
+}
+
 /* Login centrado */
 .center {
-  min-height: 100vh;
+  width: 100%;
+  height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -119,11 +132,12 @@ body, html {
 
 /* Contenido después del login */
 .content-screen {
-  display: none; /* Se activa tras login correcto con JS */
+  display: none; /* Se activa tras login correcto */
   width: 100%;
-  padding: 50px 20px;
+  height: 100vh; /* Ocupa toda la pantalla */
   display: flex;
   justify-content: center;
+  align-items: center; /* Centrado vertical */
 }
 
 .cni-box {
@@ -141,3 +155,50 @@ body, html {
   from {opacity: 0; transform: translateY(20px);}
   to {opacity: 1; transform: translateY(0);}
 }
+</style>
+</head>
+<body>
+
+<div class="background">
+  <div class="particles"></div>
+</div>
+
+<div class="center">
+  <div class="login-box">
+    <h2>ACCESO RESTRINGIDO</h2>
+    <p>Bienvenido al sistema del CNI - División Operativa</p>
+    <input type="password" id="password" placeholder="Contraseña">
+    <button onclick="login()">Entrar</button>
+    <div class="error-msg" id="error-msg">Contraseña incorrecta</div>
+    <div class="login-info">
+      <p>Usuario autorizado solo para personal interno</p>
+      <p>Registro de actividad y monitoreo activo</p>
+    </div>
+  </div>
+</div>
+
+<div class="content-screen">
+  <div class="cni-box">
+    <h1>Contenido del Sistema</h1>
+    <p>Este contenido está centrado vertical y horizontalmente en la pantalla, con margen en medio.</p>
+    <p>Aquí irá toda la información una vez que accedas correctamente.</p>
+  </div>
+</div>
+
+<script>
+// Función de login simple
+function login() {
+  const password = document.getElementById('password').value;
+  const errorMsg = document.getElementById('error-msg');
+  if(password === 'benja144') {
+    document.querySelector('.center').style.display = 'none';
+    document.querySelector('.content-screen').style.display = 'flex';
+    errorMsg.style.display = 'none';
+  } else {
+    errorMsg.style.display = 'block';
+  }
+}
+</script>
+
+</body>
+</html>
