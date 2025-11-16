@@ -16,15 +16,17 @@ body, html {
   to {opacity: 1; transform: translateY(0);}
 }
 
-/* Caja de login */
+/* Centro de login */
 .center {
   width: 100%;
   height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
+  animation: fadeIn 1s ease forwards;
 }
 
+/* Caja de login */
 .login-box {
   background: rgba(12, 15, 18, 0.95);
   padding: 50px 40px;
@@ -32,16 +34,23 @@ body, html {
   border: 2px solid #0077ff;
   box-shadow: 0 0 50px rgba(0, 119, 255, 0.7);
   text-align: center;
-  width: 360px;
+  width: 400px;
   animation: fadeIn 1s ease forwards;
 }
 
 .login-box h2 {
-  margin-bottom: 20px;
+  margin-bottom: 15px;
   color: #00aaff;
-  text-shadow: 0 0 8px #0077ff;
+  text-shadow: 0 0 10px #0077ff;
 }
 
+.login-box p {
+  margin: 8px 0;
+  font-size: 14px;
+  color: #a0cfff;
+}
+
+/* Inputs */
 .login-box input {
   width: 100%;
   padding: 14px;
@@ -52,6 +61,7 @@ body, html {
   color: white;
   font-size: 16px;
   outline: none;
+  transition: all 0.3s ease;
 }
 
 .login-box input:focus {
@@ -59,6 +69,7 @@ body, html {
   box-shadow: 0 0 10px #00aaff;
 }
 
+/* Botón */
 .login-box button {
   width: 100%;
   padding: 14px;
@@ -77,7 +88,7 @@ body, html {
   box-shadow: 0 0 20px #00aaff;
 }
 
-/* Error */
+/* Mensaje de error */
 .error-msg {
   color: #ff4c4c;
   font-size: 14px;
@@ -85,39 +96,41 @@ body, html {
   display: none;
 }
 
-/* Loader en pantalla de acceso */
+/* Información adicional del login */
+.login-info {
+  margin-top: 15px;
+  font-size: 12px;
+  color: #7aaeff;
+}
+
+/* Pantalla de carga */
 .loading-screen {
-  text-align: center;
-  margin-top: 150px;
-}
-
-.loader {
-  border: 6px solid #1b2330;
-  border-top: 6px solid #0077ff;
-  border-radius: 50%;
-  width: 70px;
-  height: 70px;
-  animation: spin 1s linear infinite;
-  margin: 0 auto 20px;
-}
-
-@keyframes spin {
-  100% { transform: rotate(360deg); }
-}
-
-/* Pestaña de contenido cni.html */
-.cni-box {
-  max-width: 1000px;
-  margin: 50px auto;
-  padding: 40px;
-  background: rgba(12, 15, 18, 0.95);
-  border-radius: 12px;
-  border-left: 4px solid #0077ff;
-  box-shadow: 0 0 40px rgba(0, 119, 255, 0.5);
-  animation: fadeIn 1s ease forwards;
-}
-
-h1, h2, h3, h4 {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(11, 13, 18, 0.95);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   color: #00aaff;
-  margin-bottom: 15px;
+  text-align: center;
+  font-size: 16px;
+  z-index: 9999;
+}
+
+#loader-canvas {
+  width: 150px;
+  height: 150px;
+  margin-bottom: 20px;
+  background: none;
+}
+
+/* Animación de texto de carga */
+#loading-text {
+  margin-top: 10px;
+  color: #7aaeff;
+  font-size: 14px;
 }
