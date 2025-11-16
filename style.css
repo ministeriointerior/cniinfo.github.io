@@ -20,149 +20,56 @@ html, body {
   overflow: hidden;
 }
 
-/* Fondo animado tipo matrix */
-@keyframes matrixScroll {
-  0% {background-position: 0 0;}
-  100% {background-position: 0 2000px;}
-}
-
-body::before {
-  content: '';
+/* Pantalla de carga */
+#loading-screen {
   position: fixed;
   top:0;
   left:0;
   width:100%;
   height:100%;
-  background: repeating-linear-gradient(0deg, #0f0 0 1px, transparent 1px 20px);
-  opacity:0.05;
-  animation: matrixScroll 20s linear infinite;
-  z-index:0;
+  background:#000;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  z-index:999;
+  color:#fff;
 }
 
-/* Partículas dinámicas */
-.particles {
-  position: absolute;
-  top:0;
-  left:0;
-  width:100%;
-  height:100%;
-  pointer-events:none;
-  z-index:1;
+.loader {
+  width: 80px;
+  height: 80px;
+  border: 5px solid #111;
+  border-top: 5px solid #0ff;
+  border-radius: 50%;
+  animation: spin 2s linear infinite;
+  margin-bottom: 20px;
 }
 
-/* Fade-in general */
-@keyframes fadeIn {
-  from {opacity: 0; transform: translateY(20px);}
-  to {opacity: 1; transform: translateY(0);}
+@keyframes spin {
+  0% {transform: rotate(0deg);}
+  100% {transform: rotate(360deg);}
 }
 
-/* Glow pulsante para cajas y bordes */
-@keyframes glow {
-  0%,100% {box-shadow: 0 0 20px #0ff, 0 0 40px #0ff;}
-  50% {box-shadow: 0 0 30px #0ff, 0 0 60px #0ff;}
-}
-
-/* Centro login */
-.center {
-  width: 100%;
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: relative;
-  overflow:hidden;
-  animation: fadeIn 1s ease forwards;
-}
-
-/* Caja login neón */
-.login-box {
-  position: relative;
-  background: #000;
-  padding: 50px 40px;
-  border-radius: 12px;
-  border: 2px solid #0ff;
-  box-shadow: 0 0 50px #0ff;
+.loading-text {
+  font-size: 16px;
   text-align: center;
-  width: 400px;
-  animation: fadeIn 1s ease forwards, glow 2s ease-in-out infinite;
-  z-index:2;
+  max-width: 600px;
+  line-height: 1.5;
 }
 
-.login-box h2 {
-  margin-bottom: 15px;
-  color: #0ff;
-  text-shadow: 0 0 5px #0ff, 0 0 15px #0ff;
-  animation: glow 2s ease-in-out infinite;
-}
-
-.login-box p {
-  margin: 8px 0;
-  font-size: 14px;
-  color: #ccc;
-}
-
-/* Inputs */
-.login-box input {
-  width: 100%;
-  padding: 14px;
-  margin: 12px 0;
-  background: #111;
-  border: 1px solid #0ff;
-  border-radius: 6px;
-  color: white;
-  font-size: 16px;
-  outline: none;
-  transition: all 0.3s ease;
-  box-shadow: 0 0 5px #0ff inset;
-}
-
-.login-box input:focus {
-  border: 1px solid #0ff;
-  box-shadow: 0 0 10px #0ff inset, 0 0 20px #0ff;
-}
-
-/* Botón */
-.login-box button {
-  width: 100%;
-  padding: 14px;
-  margin-top: 20px;
-  background: #000;
-  border: 1px solid #0ff;
-  border-radius: 6px;
-  color: #fff;
-  font-size: 16px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  text-shadow: 0 0 5px #0ff;
-  box-shadow: 0 0 5px #0ff;
-}
-
-.login-box button:hover {
-  box-shadow: 0 0 20px #0ff, 0 0 40px #0ff;
-  transform: scale(1.05);
-}
-
-/* Mensaje de error */
-.error-msg {
-  color: #ff4c4c;
-  font-size: 14px;
-  margin-top: 10px;
-  display: none;
-  text-shadow: 0 0 5px #ff4c4c;
-}
-
-/* Contenido interno */
+/* Contenido principal */
 .content-screen {
   display: none;
   width: 100%;
   min-height: 100vh;
-  overflow-y: auto;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 40px 20px;
+  overflow-y: auto; /* permite scroll vertical */
   position: relative;
   background: #000;
+  padding: 40px 20px;
+  display: flex;
+  justify-content: center; /* centra horizontal */
+  align-items: center;     /* centra vertical */
   box-sizing: border-box;
 }
 
@@ -184,9 +91,10 @@ body::before {
 .side-label.left { left: 10px; }
 .side-label.right { right: 10px; }
 
-/* Caja principal contenido */
+/* Caja interna de contenido */
 .cni-box {
   max-width: 900px;
+  width: 100%;
   background: #000;
   padding: 40px;
   border-radius: 12px;
@@ -194,7 +102,6 @@ body::before {
   box-shadow: 0 0 40px #0ff;
   text-align: left;
   color: #fff;
-  animation: glow 2s ease-in-out infinite;
 }
 
 /* Títulos */
@@ -207,6 +114,70 @@ body::before {
 /* Lista */
 .cni-box ul { margin-left: 20px; }
 .cni-box ul li { margin-bottom: 10px; }
+
+/* Login */
+.center {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #000;
+  position: relative;
+}
+
+.login-box {
+  background: #000;
+  padding: 50px 40px;
+  border-radius: 12px;
+  border: 2px solid #0ff;
+  box-shadow: 0 0 50px #0ff;
+  text-align: center;
+  width: 400px;
+}
+
+.login-box h2 {
+  color: #0ff;
+  text-shadow: 0 0 10px #0ff;
+  margin-bottom: 15px;
+}
+
+.login-box input {
+  width: 100%;
+  padding: 14px;
+  margin: 12px 0;
+  background: #111;
+  border: 1px solid #0ff;
+  border-radius: 6px;
+  color: white;
+  font-size: 16px;
+  outline: none;
+}
+
+.login-box button {
+  width: 100%;
+  padding: 14px;
+  margin-top: 20px;
+  background: #000;
+  border: 1px solid #0ff;
+  border-radius: 6px;
+  color: #fff;
+  font-size: 16px;
+  cursor: pointer;
+  text-shadow: 0 0 5px #0ff;
+}
+
+.login-box button:hover {
+  box-shadow: 0 0 20px #0ff;
+}
+
+.error-msg {
+  color: #ff4c4c;
+  font-size: 14px;
+  margin-top: 10px;
+  display: none;
+}
+
 </style>
 </head>
 <body>
@@ -217,18 +188,15 @@ body::before {
   <div class="loading-text">
     <p>Cargando módulos de seguridad...</p>
     <p>Iniciando monitoreo de actividad...</p>
-    <p>Verificando credenciales del personal...</p>
-    <p>Generando interfaz segura...</p>
-    <p>Preparando sistema de comunicación cifrada...</p>
+    <p>Verificando credenciales...</p>
+    <p>Preparando sistema...</p>
   </div>
 </div>
 
 <!-- Login -->
 <div class="center" id="login-screen">
-  <div class="particles"></div>
   <div class="login-box">
     <h2>ACCESO RESTRINGIDO</h2>
-    <p>Sistema CNI - División Operativa</p>
     <input type="password" id="password" placeholder="Contraseña">
     <button onclick="login()">Entrar</button>
     <div class="error-msg" id="error-msg">Contraseña incorrecta</div>
@@ -243,33 +211,31 @@ body::before {
   <div class="cni-box">
     <h1>Bienvenido al Sistema</h1>
     <h2>División Operativa - CNI</h2>
-    <p>Contenido centrado vertical y horizontalmente. Puedes hacer scroll si excede la pantalla.</p>
+    <p>Todo el contenido está centrado vertical y horizontalmente.</p>
     <ul>
       <li>Acceso solo para agentes autorizados.</li>
       <li>Monitoreo constante de la actividad.</li>
       <li>Todo registro queda guardado en el sistema.</li>
       <li>Clasificación: Confidencial</li>
     </ul>
-    <p>Más información relevante del sistema se mostrará aquí.</p>
+    <p>Más información relevante se mostrará aquí.</p>
     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum et ligula in nunc bibendum fringilla a eu lectus.</p>
-    <p>Integridad de datos, monitoreo y registro activo.</p>
-    <p>Acceso a secciones críticas limitado únicamente a personal autorizado.</p>
+    <p>Si el contenido excede la pantalla, se puede hacer scroll vertical.</p>
   </div>
 </div>
 
 <script>
-// Pantalla de carga simulada
+// Simulación de carga
 window.addEventListener('load', function() {
   setTimeout(() => {
     document.getElementById('loading-screen').style.display = 'none';
     document.getElementById('login-screen').style.display = 'flex';
-  }, 4000);
+  }, 3000);
 });
 
 function login() {
   const pass = document.getElementById('password').value;
   const error = document.getElementById('error-msg');
-
   if(pass === "benja144"){
     document.getElementById("login-screen").style.display = "none";
     document.getElementById("content-screen").style.display = "flex";
