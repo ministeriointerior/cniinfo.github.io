@@ -4,8 +4,9 @@ function login() {
   if (password === "1432828684317753355") {
     window.location.href = "access.html";
   } else {
-    alert("Acceso denegado. no intentes acceder donde no estas autorizado.");
+    alert(" ⨸ ﻿ＡＣＣＥＳＯ　ＤＥＮＥＧＡＤＯ．　　　ＮＯ　ＩＮＴＥＮＴＥＳ　ＡＣＣＥＤＥＲ　ＤＯＮＤＥ　ＮＯ　ＥＳＴＡＳ　ＡＵＴＯＲＩＺＡＤＯ ⨸．");
   }
 }
+
 
 
