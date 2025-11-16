@@ -12,7 +12,7 @@ body, html {
   font-family: 'Consolas', monospace;
   background: #000;
   color: #fff;
-  overflow-y: auto;
+  overflow: hidden;
   position: relative;
 }
 
@@ -48,7 +48,8 @@ body, html {
 
 /* Login centrado */
 .center {
-  min-height: 100vh;
+  width: 100%;
+  height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -133,9 +134,10 @@ body, html {
 .content-screen {
   display: none; /* Se activa tras login correcto */
   width: 100%;
-  padding: 50px 20px;
+  height: 100vh; /* Ocupa toda la pantalla */
   display: flex;
   justify-content: center;
+  align-items: center; /* Centrado vertical */
 }
 
 .cni-box {
@@ -178,6 +180,7 @@ body, html {
 <div class="content-screen">
   <div class="cni-box">
     <h1>Contenido del Sistema</h1>
+    <p>Este contenido está centrado vertical y horizontalmente en la pantalla, con margen en medio.</p>
     <p>Aquí irá toda la información una vez que accedas correctamente.</p>
   </div>
 </div>
