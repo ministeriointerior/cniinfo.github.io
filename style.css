@@ -1,236 +1,139 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-<meta charset="UTF-8">
-<title>CNI - División Operativa</title>
-
-<style>
-/* Reset */
-html, body {
-    margin: 0;
-    padding: 0;
-    height: 100%;
-    background: #000;
-    overflow: hidden;
-    font-family: "Consolas", monospace;
-    color: white;
+/* Reset y tipografía general */
+body, html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font-family: 'Consolas', 'Courier New', monospace;
+  background: #0b0d12 url('assets/bg.jpg') no-repeat center center fixed;
+  background-size: cover;
+  color: #f5f5f5;
+  overflow-y: auto; /* Permite scroll vertical */
 }
 
-/* Fondo polvo sutil */
-.particles {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-    background: radial-gradient(circle, rgba(255,255,255,0.04) 1px, transparent 1px);
-    background-size: 18px 18px;
-    animation: dustMove 120s linear infinite;
-    z-index: -1;
-}
-
-@keyframes dustMove {
-    0% {background-position: 0 0;}
-    100% {background-position: 2000px 2000px;}
-}
-
-/* Fade-in */
+/* Fade-in general */
 @keyframes fadeIn {
-    from {opacity: 0; transform: scale(0.95);}
-    to {opacity: 1; transform: scale(1);}
+  from {opacity: 0; transform: translateY(20px);}
+  to {opacity: 1; transform: translateY(0);}
 }
 
-/* Login centrado */
+/* Centro de login (centrado y desplazable) */
 .center {
-    width: 100%;
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start; /* Ajustado para scroll si hay mucho contenido */
+  padding: 40px 0; /* Espacio superior/inferior para scroll */
+  animation: fadeIn 1s ease forwards;
 }
 
-/* Caja login estilo FBI Warning moderno */
+/* Caja de login */
 .login-box {
-    background: rgba(0,0,0,0.9);
-    border: 2px solid white;
-    box-shadow: 0 0 25px white;
-    width: 420px;
-    padding: 45px 40px;
-    border-radius: 10px;
-    text-align: center;
-    animation: fadeIn 1.4s ease-out;
+  background: rgba(12, 15, 18, 0.95);
+  padding: 50px 40px;
+  border-radius: 12px;
+  border: 2px solid #0077ff;
+  box-shadow: 0 0 50px rgba(0, 119, 255, 0.7);
+  text-align: center;
+  width: 400px;
+  animation: fadeIn 1s ease forwards;
+  max-width: 90%; /* Se adapta a pantallas pequeñas */
 }
 
+/* Títulos y párrafos */
 .login-box h2 {
-    color: white;
-    font-size: 30px;
-    margin-bottom: 10px;
-    text-shadow: 0 0 15px white;
+  margin-bottom: 15px;
+  color: #00aaff;
+  text-shadow: 0 0 10px #0077ff;
 }
 
 .login-box p {
-    color: #ccc;
-    margin-bottom: 20px;
+  margin: 8px 0;
+  font-size: 14px;
+  color: #a0cfff;
 }
 
+/* Inputs */
 .login-box input {
-    width: 100%;
-    padding: 14px;
-    background: #111;
-    border: 1px solid white;
-    color: white;
-    border-radius: 6px;
-    font-size: 15px;
-    margin-bottom: 15px;
-    outline: none;
-    transition: 0.3s;
+  width: 100%;
+  padding: 14px;
+  margin: 12px 0;
+  background: #0c1016;
+  border: 1px solid #232a36;
+  border-radius: 6px;
+  color: white;
+  font-size: 16px;
+  outline: none;
+  transition: all 0.3s ease;
 }
+
 .login-box input:focus {
-    box-shadow: 0 0 12px white;
+  border: 1px solid #00aaff;
+  box-shadow: 0 0 10px #00aaff;
 }
 
+/* Botón */
 .login-box button {
-    width: 100%;
-    padding: 15px;
-    background: black;
-    border: 1px solid white;
-    color: white;
-    cursor: pointer;
-    font-size: 16px;
-    border-radius: 6px;
-    text-shadow: 0 0 8px white;
-    transition: 0.3s;
+  width: 100%;
+  padding: 14px;
+  margin-top: 20px;
+  background: linear-gradient(90deg, #003d85, #0057b8);
+  border: none;
+  border-radius: 6px;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.3s ease;
 }
+
 .login-box button:hover {
-    box-shadow: 0 0 20px white;
+  background: linear-gradient(90deg, #0057b8, #00aaff);
+  box-shadow: 0 0 20px #00aaff;
 }
 
+/* Mensaje de error */
 .error-msg {
-    color: #ff3b3b;
-    font-size: 14px;
-    margin-top: 10px;
-    display: none;
+  color: #ff4c4c;
+  font-size: 14px;
+  margin-top: 10px;
+  display: none;
 }
 
+/* Información adicional del login */
 .login-info {
-    color: #bbb;
-    font-size: 12px;
-    margin-top: 12px;
+  margin-top: 15px;
+  font-size: 12px;
+  color: #7aaeff;
 }
 
-/* Pantalla interna centrada */
-.content-screen {
-    display: none;
-    width: 100%;
-    height: 100vh;
-    justify-content: center;
-    align-items: center;
+/* Pantalla de carga */
+.loading-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(11, 13, 18, 0.95);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: #00aaff;
+  text-align: center;
+  font-size: 16px;
+  z-index: 9999;
+  overflow-y: auto; /* Permite scroll si el contenido de carga es largo */
 }
 
-/* Caja interna estilo FBI pero futurista */
-.cni-box {
-    width: 900px;
-    max-width: 90%;
-    background: rgba(0,0,0,0.90);
-    border: 2px solid white;
-    box-shadow: 0 0 35px white;
-    padding: 50px;
-    border-radius: 12px;
-    animation: fadeIn 1.4s ease-out;
-    text-align: center;
+#loader-canvas {
+  width: 150px;
+  height: 150px;
+  margin-bottom: 20px;
+  background: none;
 }
 
-/* Títulos estilo FBI */
-.cni-box h1 {
-    font-size: 42px;
-    color: #ff0000;
-    text-shadow: 0 0 20px red;
-    margin-bottom: 25px;
+/* Animación de texto de carga */
+#loading-text {
+  margin-top: 10px;
+  color: #7aaeff;
+  font-size: 14px;
 }
-
-.cni-box h2 {
-    font-size: 26px;
-    color: white;
-    margin-bottom: 20px;
-}
-
-.cni-box p {
-    font-size: 16px;
-    line-height: 1.6;
-    margin-bottom: 12px;
-}
-
-.cni-box ul {
-    text-align: left;
-    margin: 20px auto;
-    max-width: 600px;
-}
-
-.cni-box ul li {
-    margin-bottom: 10px;
-    font-size: 15px;
-}
-</style>
-</head>
-
-<body>
-
-<div class="particles"></div>
-
-<!-- LOGIN -->
-<div class="center" id="login-screen">
-    <div class="login-box">
-        <h2>ACCESO RESTRINGIDO</h2>
-        <p>Sistema CNI - División Operativa</p>
-
-        <input type="password" id="password" placeholder="Contraseña">
-        <button onclick="login()">Entrar</button>
-
-        <div class="error-msg" id="error-msg">Contraseña incorrecta</div>
-
-        <div class="login-info">
-            <p>Acceso limitado a personal autorizado</p>
-            <p>Registro y monitoreo activo</p>
-        </div>
-    </div>
-</div>
-
-<!-- CONTENIDO INTERNO -->
-<div class="content-screen" id="content-screen">
-    <div class="cni-box">
-        <h1>WARNING</h1>
-        <h2>INTERNAL OPERATIVE SYSTEM</h2>
-
-        <p>Bienvenido al sistema interno de la División Operativa del CNI.</p>
-        <p>Este entorno es solo para agentes autorizados. Toda actividad queda registrada.</p>
-
-        <p><strong>Normativa de Acceso:</strong></p>
-        <ul>
-            <li>Está prohibida la divulgación de la información contenida dentro del sistema.</li>
-            <li>Todo acceso queda verificado y rastreado por ID interno.</li>
-            <li>El uso indebido puede resultar en la desactivación del terminal.</li>
-            <li>El contenido está clasificado según normativa 144-A.</li>
-        </ul>
-
-        <p>Si continúas, aceptas las condiciones y la supervisión activa del sistema.</p>
-    </div>
-</div>
-
-<script>
-function login() {
-    const pass = document.getElementById('password').value;
-    const error = document.getElementById('error-msg');
-
-    if (pass === "benja144") {
-        document.getElementById("login-screen").style.display = "none";
-        document.getElementById("content-screen").style.display = "flex";
-        error.style.display = "none";
-    } else {
-        error.style.display = "block";
-    }
-}
-</script>
-
-</body>
-</html>
