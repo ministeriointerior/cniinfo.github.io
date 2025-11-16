@@ -4,13 +4,13 @@
 <meta charset="UTF-8">
 <title>CNI - División Operativa</title>
 <style>
-/* Reset general */
+/* Reset general y fondo completamente negro */
 body, html {
   margin: 0;
   padding: 0;
   height: 100%;
-  font-family: 'Consolas', 'Courier New', monospace;
-  background: #000; /* fondo negro general */
+  font-family: 'Consolas', monospace;
+  background: #000; /* fondo completamente negro */
   color: #fff;
   overflow: hidden;
 }
@@ -54,7 +54,7 @@ body, html {
 /* Caja login negra con neón blanco */
 .login-box {
   position: relative;
-  background: rgba(0,0,0,0.95);
+  background: #000;
   padding: 50px 40px;
   border-radius: 12px;
   border: 2px solid #fff; /* neón blanco */
@@ -141,11 +141,12 @@ body, html {
   align-items: flex-start; /* contenido centrado horizontal, scroll vertical */
   padding: 40px 20px;
   box-sizing: border-box;
+  background: #000; /* fondo negro completo */
 }
 
 .cni-box {
   max-width: 900px;
-  background: rgba(0,0,0,0.95);
+  background: #000;
   padding: 40px;
   border-radius: 12px;
   border: 2px solid #fff;
@@ -193,7 +194,7 @@ body, html {
     <div class="cni-box">
         <h1>Bienvenido al Sistema</h1>
         <h2>División Operativa - CNI</h2>
-        <p>Este contenido está completamente centrado y permite scroll vertical si se excede la pantalla.</p>
+        <p>Este contenido está completamente centrado horizontalmente y permite scroll vertical si se excede la pantalla.</p>
         <p>Información sensible del sistema:</p>
         <ul>
             <li>Acceso solo para agentes autorizados.</li>
