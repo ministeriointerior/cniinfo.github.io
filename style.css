@@ -15,72 +15,51 @@ html, body {
   height: 100%;
   width: 100%;
   font-family: 'Consolas', monospace;
-  background: #000 !important;
+  background: #000;
   color: #fff;
   overflow: hidden;
 }
 
-/* Pantalla de carga */
-#loading-screen {
+/* Fondo animado tipo matrix */
+@keyframes matrixScroll {
+  0% {background-position: 0 0;}
+  100% {background-position: 0 2000px;}
+}
+
+body::before {
+  content: '';
   position: fixed;
   top:0;
   left:0;
   width:100%;
   height:100%;
-  background:#000;
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-  align-items:center;
-  z-index:999;
-  color:#fff;
+  background: repeating-linear-gradient(0deg, #0f0 0 1px, transparent 1px 20px);
+  opacity:0.05;
+  animation: matrixScroll 20s linear infinite;
+  z-index:0;
 }
 
-.loading-text {
-  font-size: 18px;
-  margin-top: 20px;
-  text-align:center;
-  max-width:600px;
-}
-
-.loader {
-  width: 80px;
-  height: 80px;
-  border: 5px solid #111;
-  border-top: 5px solid #0ff;
-  border-radius: 50%;
-  animation: spin 2s linear infinite;
-  margin-bottom: 20px;
-}
-
-@keyframes spin {
-  0% {transform: rotate(0deg);}
-  100% {transform: rotate(360deg);}
-}
-
-/* Login con partículas */
+/* Partículas dinámicas */
 .particles {
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-  background: radial-gradient(circle, rgba(255,255,255,0.03) 1px, transparent 1px);
-  background-size: 20px 20px;
-  animation: moveParticles 60s linear infinite;
-  z-index: 1;
-}
-
-@keyframes moveParticles {
-  0% { background-position: 0 0; }
-  100% { background-position: 1000px 1000px; }
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  pointer-events:none;
+  z-index:1;
 }
 
 /* Fade-in general */
 @keyframes fadeIn {
   from {opacity: 0; transform: translateY(20px);}
   to {opacity: 1; transform: translateY(0);}
+}
+
+/* Glow pulsante para cajas y bordes */
+@keyframes glow {
+  0%,100% {box-shadow: 0 0 20px #0ff, 0 0 40px #0ff;}
+  50% {box-shadow: 0 0 30px #0ff, 0 0 60px #0ff;}
 }
 
 /* Centro login */
@@ -90,13 +69,12 @@ html, body {
   display: flex;
   justify-content: center;
   align-items: center;
-  animation: fadeIn 1s ease forwards;
   position: relative;
-  background: #000;
   overflow:hidden;
+  animation: fadeIn 1s ease forwards;
 }
 
-/* Caja login negra con neón blanco */
+/* Caja login neón */
 .login-box {
   position: relative;
   background: #000;
@@ -106,14 +84,15 @@ html, body {
   box-shadow: 0 0 50px #0ff;
   text-align: center;
   width: 400px;
-  animation: fadeIn 1s ease forwards;
-  z-index: 2;
+  animation: fadeIn 1s ease forwards, glow 2s ease-in-out infinite;
+  z-index:2;
 }
 
 .login-box h2 {
   margin-bottom: 15px;
   color: #0ff;
-  text-shadow: 0 0 10px #0ff;
+  text-shadow: 0 0 5px #0ff, 0 0 15px #0ff;
+  animation: glow 2s ease-in-out infinite;
 }
 
 .login-box p {
@@ -134,11 +113,12 @@ html, body {
   font-size: 16px;
   outline: none;
   transition: all 0.3s ease;
+  box-shadow: 0 0 5px #0ff inset;
 }
 
 .login-box input:focus {
   border: 1px solid #0ff;
-  box-shadow: 0 0 10px #0ff;
+  box-shadow: 0 0 10px #0ff inset, 0 0 20px #0ff;
 }
 
 /* Botón */
@@ -149,15 +129,17 @@ html, body {
   background: #000;
   border: 1px solid #0ff;
   border-radius: 6px;
-  color: white;
+  color: #fff;
   font-size: 16px;
   cursor: pointer;
   transition: all 0.3s ease;
   text-shadow: 0 0 5px #0ff;
+  box-shadow: 0 0 5px #0ff;
 }
 
 .login-box button:hover {
-  box-shadow: 0 0 20px #0ff;
+  box-shadow: 0 0 20px #0ff, 0 0 40px #0ff;
+  transform: scale(1.05);
 }
 
 /* Mensaje de error */
@@ -166,48 +148,43 @@ html, body {
   font-size: 14px;
   margin-top: 10px;
   display: none;
+  text-shadow: 0 0 5px #ff4c4c;
 }
 
-/* Información adicional del login */
-.login-info {
-  margin-top: 15px;
-  font-size: 12px;
-  color: #aaa;
-}
-
-/* Contenido interno centrado y scrollable */
+/* Contenido interno */
 .content-screen {
   display: none;
   width: 100%;
   min-height: 100vh;
   overflow-y: auto;
   display: flex;
-  justify-content: center; /* centra horizontal */
-  align-items: center;     /* centra vertical */
+  justify-content: center;
+  align-items: center;
   padding: 40px 20px;
-  background: #000;
   position: relative;
+  background: #000;
   box-sizing: border-box;
 }
 
-/* Frases laterales */
+/* Laterales con información clasificada */
 .side-label {
   position: fixed;
   top: 50%;
   transform: translateY(-50%);
   font-size: 24px;
-  color: #333;
-  opacity: 0.2;
+  color: #0ff;
+  opacity: 0.1;
   letter-spacing: 2px;
   writing-mode: vertical-rl;
   pointer-events: none;
   user-select: none;
+  text-shadow: 0 0 5px #0ff;
 }
 
 .side-label.left { left: 10px; }
 .side-label.right { right: 10px; }
 
-/* Caja interna de contenido */
+/* Caja principal contenido */
 .cni-box {
   max-width: 900px;
   background: #000;
@@ -217,100 +194,90 @@ html, body {
   box-shadow: 0 0 40px #0ff;
   text-align: left;
   color: #fff;
+  animation: glow 2s ease-in-out infinite;
 }
 
 /* Títulos */
 .cni-box h1, .cni-box h2, .cni-box h3 {
   text-align: center;
   margin-bottom: 20px;
+  text-shadow: 0 0 5px #0ff, 0 0 15px #0ff;
 }
 
 /* Lista */
-.cni-box ul {
-  margin-left: 20px;
-}
-
-.cni-box ul li {
-  margin-bottom: 10px;
-}
+.cni-box ul { margin-left: 20px; }
+.cni-box ul li { margin-bottom: 10px; }
 </style>
 </head>
 <body>
 
 <!-- Pantalla de carga -->
 <div id="loading-screen">
-    <div class="loader"></div>
-    <div class="loading-text">
-        <p>Cargando módulos de seguridad...</p>
-        <p>Iniciando monitoreo de actividad...</p>
-        <p>Verificando credenciales del personal...</p>
-        <p>Generando interfaz segura...</p>
-    </div>
+  <div class="loader"></div>
+  <div class="loading-text">
+    <p>Cargando módulos de seguridad...</p>
+    <p>Iniciando monitoreo de actividad...</p>
+    <p>Verificando credenciales del personal...</p>
+    <p>Generando interfaz segura...</p>
+    <p>Preparando sistema de comunicación cifrada...</p>
+  </div>
 </div>
 
-<!-- Login con partículas -->
+<!-- Login -->
 <div class="center" id="login-screen">
-    <div class="particles"></div>
-    <div class="login-box">
-        <h2>ACCESO RESTRINGIDO</h2>
-        <p>Sistema CNI - División Operativa</p>
-        <input type="password" id="password" placeholder="Contraseña">
-        <button onclick="login()">Entrar</button>
-        <div class="error-msg" id="error-msg">Contraseña incorrecta</div>
-        <div class="login-info">
-            <p>Acceso limitado a personal autorizado</p>
-            <p>Registro y monitoreo activo</p>
-        </div>
-    </div>
+  <div class="particles"></div>
+  <div class="login-box">
+    <h2>ACCESO RESTRINGIDO</h2>
+    <p>Sistema CNI - División Operativa</p>
+    <input type="password" id="password" placeholder="Contraseña">
+    <button onclick="login()">Entrar</button>
+    <div class="error-msg" id="error-msg">Contraseña incorrecta</div>
+  </div>
 </div>
 
-<!-- Contenido interno -->
+<!-- Contenido -->
 <div class="content-screen" id="content-screen">
-    <div class="side-label left">INFORMACIÓN CLASIFICADA</div>
-    <div class="side-label right">INFORMACIÓN CLASIFICADA</div>
+  <div class="side-label left">INFORMACIÓN CLASIFICADA</div>
+  <div class="side-label right">INFORMACIÓN CLASIFICADA</div>
 
-    <div class="cni-box">
-        <h1>Bienvenido al Sistema</h1>
-        <h2>División Operativa - CNI</h2>
-        <p>Contenido centrado vertical y horizontalmente. Puedes hacer scroll si excede la pantalla.</p>
-        <p>Información sensible del sistema:</p>
-        <ul>
-            <li>Acceso solo para agentes autorizados.</li>
-            <li>Monitoreo constante de la actividad.</li>
-            <li>Todo registro queda guardado en el sistema.</li>
-            <li>Clasificación: Confidencial</li>
-        </ul>
-        <p>Más información relevante del sistema se mostrará aquí.</p>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum et ligula in nunc bibendum fringilla a eu lectus. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum et ligula in nunc bibendum fringilla a eu lectus. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam eu turpis molestie, dictum est a, mattis tellus.</p>
-        <p>Integridad de datos, monitoreo y registro activo.</p>
-        <p>Acceso a secciones críticas limitado únicamente a personal autorizado.</p>
-    </div>
+  <div class="cni-box">
+    <h1>Bienvenido al Sistema</h1>
+    <h2>División Operativa - CNI</h2>
+    <p>Contenido centrado vertical y horizontalmente. Puedes hacer scroll si excede la pantalla.</p>
+    <ul>
+      <li>Acceso solo para agentes autorizados.</li>
+      <li>Monitoreo constante de la actividad.</li>
+      <li>Todo registro queda guardado en el sistema.</li>
+      <li>Clasificación: Confidencial</li>
+    </ul>
+    <p>Más información relevante del sistema se mostrará aquí.</p>
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum et ligula in nunc bibendum fringilla a eu lectus.</p>
+    <p>Integridad de datos, monitoreo y registro activo.</p>
+    <p>Acceso a secciones críticas limitado únicamente a personal autorizado.</p>
+  </div>
 </div>
 
 <script>
-// Simulación de pantalla de carga
+// Pantalla de carga simulada
 window.addEventListener('load', function() {
-    setTimeout(() => {
-        document.getElementById('loading-screen').style.display = 'none';
-        document.getElementById('login-screen').style.display = 'flex';
-    }, 4000); // 4 segundos de animación de carga
+  setTimeout(() => {
+    document.getElementById('loading-screen').style.display = 'none';
+    document.getElementById('login-screen').style.display = 'flex';
+  }, 4000);
 });
 
 function login() {
-    const pass = document.getElementById('password').value;
-    const error = document.getElementById('error-msg');
+  const pass = document.getElementById('password').value;
+  const error = document.getElementById('error-msg');
 
-    if (pass === "benja144") {
-        document.getElementById("login-screen").style.display = "none";
-        document.getElementById("content-screen").style.display = "flex";
-        error.style.display = "none";
-    } else {
-        error.style.display = "block";
-    }
+  if(pass === "benja144"){
+    document.getElementById("login-screen").style.display = "none";
+    document.getElementById("content-screen").style.display = "flex";
+    error.style.display = "none";
+  } else {
+    error.style.display = "block";
+  }
 }
 </script>
-
 </body>
 </html>
